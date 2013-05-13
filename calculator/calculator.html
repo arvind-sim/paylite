@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<script type='text/javascript' src='js/jquery-1.6.1.min.js'></script>
+<link rel="stylesheet" href="css/generic.css" type="text/css" media="screen" charset="utf-8" />
+<script src="js/custom-form-elements.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="js/jquery.tipsy.js"></script>
+<script type="text/javascript" src="js/calc_main.js"></script>
+
+<script language="javascript">
+    var slide_down_delay = 500;
+    $(document).ready(function() {
+	  $('#image_1').slideDown(1000);
+      $('#row_1').slideDown(slide_down_delay,
+        function(){
+          $('#row_2').slideDown(slide_down_delay,
+          function(){ 
+	 	    $('#row_3').slideDown(slide_down_delay,
+		      function(){
+		        $('#row_4').slideDown(slide_down_delay);
+			    $('#row_5').slideDown(slide_down_delay);
+                $('#row_6').slideDown(slide_down_delay,
+                function(){
+			      $('#calculate').slideDown(slide_down_delay);
+		        });
+	          }); 
+	    });
+	  });
+      $('#payment_amount').change(function() {
+	    PayliteCalculator.reset_selection(1);
+      });
+      
+      $('#purchase_amount').keyup(function(){
+		PayliteCalculator.handle_key_press();
+	  });
+      
+      $('#payment_tenure').change(function() {
+	    PayliteCalculator.reset_selection(0);
+      });
+	  $('#setup_paylite_div').click(function(){
+        window.open('https://www.citibank.co.in/', '');
+	  });
+	  $('#sample_statement').click(function(){
+		//toggle('hidden');
+		$('#hidden').fadeToggle(2000);
+	  });
+      PayliteCalculator.init();
+    });
+    
+    function toggle(id) {
+      var state = document.getElementById(id).style.display;
+      if (state == 'block') {
+        document.getElementById(id).style.display = 'none';
+      } else {
+        document.getElementById(id).style.display = 'block';
+      }
+    }
+</script>
+</head>
+
+<body>
+<div class="calculator_base">
+	<div class="calculator_left">
+		<img src="images/logo_calculator.png" class="logo" />
+        <img src="images/title_left_calculator.png" class="title" />
+        <p class="description"><strong>Calculate your savings under the Pay-Lite program!</strong></p>
+        <p class="description">Choose either the number of months you want to pay off your loan/purchase or how much you want to pay every month. We calculate your savings against the minimum due every month.</p>
+   	  	<div class="form">
+       	  	<div class="row" id="row_1">
+           		<p class="label">My purchase is of Rs.</p>
+           	  	<input type="text" class="text" maxlength="8" name="purchase_amount" id="purchase_amount" />
+                <script type='text/javascript'> 
+  $(function() {
+        
+    $('#south-west-1').tipsy({gravity: 'sw'});
+    $('#south-west-2').tipsy({gravity: 'sw'});
+	$('#south-west-3').tipsy({gravity: 'sw'});
+	
+  });                
+</script> 
+	      	<div id="gravity"><a id='south-west-1' href='#' title='Enter your purchase amount'><img src="images/help_calculator.png" border="0" class="help"/></a></div>
+            </div>
+        	<div class="row" id="row_2">
+                <p class="label">APR is</p>
+            	<p class="data">36%</p>
+            	<div id="gravity"><a id='south-west-2' href='#' title='Annualised interest charged on your purchase if you do not payback your previous bill in full'><img src="images/help_calculator.png" border="0" class="help"/></a></div>
+            </div>
+            <div class="row"  id="row_3">
+                <p class="label">Minimum due is</p>
+            	<p class="data">5%</p>
+            	<div id="gravity"><a id='south-west-3' href='#' title='The minimum amount that you need to pay on your last billed amount to avoid defaulting on your payments'><img src="images/help_calculator.png" border="0" class="help"/></a></div>
+            </div>
+          <div class="group" id="row_4">
+            	<div class="row_2" id="row_5">
+                	<label>
+                	<input type="radio" class="styled" onclick="javascript:PayliteCalculator.enable_options();" name="payment_mode" value="payment" id="payment_mode" checked />
+           	  	  <p class="label_disabled" id="label_1">I want to pay Rs</p>
+                	</label>
+                	<select name="payment_amount" id="payment_amount" class="styled" disabled="disabled">
+                	  <option value=0>Amount</option>
+                	</select>
+                    <p class="label_end_disabled" id="label_1_end">per month</p>
+       	  	  </div>
+           	  <div class="row_2"  id="row_6">
+                	<label>
+                	<input type="radio" class="styled" onclick="javascript:PayliteCalculator.enable_options();" name="payment_mode" value="tenure" id="payment_mode" />
+                  	<p class="label_disabled"  id="label_2">I want to pay for</p>
+               	  	</label>
+                	<select name="payment_tenure" id="payment_tenure" class="styled" disabled="disabled">
+                	  <option value=0>Tenure</option>
+                      <option value=6>6</option>
+                      <option value=12>12</option>
+                      <option value=24>24</option>
+                      <option value=36>36</option>
+                      <option value=48>48</option>
+                  	</select>
+                   	<p class="label_end_disabled" id="label_2_end">months</p>
+       	  	  </div>
+            </div>
+            <a href="#" name="calculate" id="calculate"><img src="images/button_calculate_norm.png" class="button" id="calculate_img" /></a>
+		</div>
+	</div>
+	
+    <div class="calculator_right">
+    	<img src="images/title_right_calculator.png" class="title"/>
+        <div class="split_image">
+        	<div class="image_1" id="image_1">&nbsp;</div>
+            <div class="image_2" id="image_2">&nbsp;</div>
+            <div class="image_3" id="image_3">&nbsp;</div>
+            <div class="image_4" id="image_4">&nbsp;</div>
+            <div class="image_5" id="image_5">&nbsp;</div>
+            <div class="image_6" id="image_6">&nbsp;</div>
+  		</div>
+        <div class="hor_title">
+       	  <p class="title_1"># of payments</p>
+          <p class="title_2">Monthly payment</p>
+        </div>
+        <div class="hor_value">
+       	  <p class="title">Pay-Lite plan</p>
+          <p class="value_1" id="split_field_1"></p>
+          <p class="value_2" id="split_field_2"></p>
+        </div>
+        <div class="hor_value">
+        	<p class="title">Minimum due plan</p>
+            <p class="value_1" id="min_due_field_1"></p>
+            <p class="value_2" id="min_due_field_2"></p>
+        </div>
+        <div class="hor_saving">
+        	<p class="title">Your savings</p>
+            <div class="saving"><p class="value" id="interest_saved"></p></div>
+        </div>
+        <div class="statement" id="hidden">&nbsp;</div>
+   	  <div class="button_1" id='sample_statement'>
+        	<p class="text">View Sample Statement</p>
+            <img src="images/calculator_bluearrow.png" class="arrow" />
+        </div>
+        <img src="images/calculator_bottom_sep.png" class="sep"/>
+      	<div class="button_2" id="setup_paylite_div">
+        	<p class="text">Setup Pay-Lite</p>
+            <img src="images/calculator_bluearrow.png" class="arrow" />
+        </div>
+	</div>
+    <div class="calculator_shadow"></div>
+</div>
+</body>
+</html>
